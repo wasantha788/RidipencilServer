@@ -14,40 +14,35 @@ import artRouter from "./routes/art.js";
 import messageRouter from "./routes/messageRoute.js";
 
 const app = express();
+const port = process.env.PORT || 4000;
 
-const allowedOrigins = [
 
-  "https://ridipencil.vercel.app"
-];
+const allowedOrigins = ["http://localhost:5173"];
 
-// Connect Services
-await connectDB();
-await connectCloudinary();
+(async () => {
+  try {
+    await connectDB();
+    await connectCloudinary();
 
-// Middlewares
-app.use(express.json());
-app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+  // Middlewares
+    app.use(express.json());
+    app.use(cookieParser());
+    app.use(cors({ origin: allowedOrigins, credentials: true }));
 
-// Test Route
-app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    message: "API Working Successfully ✅",
-  });
-});
+/* ROUTES */
+app.get("/", (req, res) => res.send("API is Working ✅"));
 
-// Routes
 app.use("/api/user", userRouter);
 app.use("/api/seller", sellerRouter);
 app.use("/api/art", artRouter);
 app.use("/api/message", messageRouter);
 
-// Export app for Vercel
-export default app;
+/* ERROR HANDLER */
+app.listen(port, () => {
+      console.log(`✅ Server running on http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error("❌ Server failed to start:", error);
+  }
+})();
