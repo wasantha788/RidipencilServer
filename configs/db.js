@@ -5,10 +5,13 @@ dotenv.config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(`${process.env.MONGODB_URI}/greencart`);
+    await mongoose.connect(process.env.MONGODB_URI);
+
     console.log("✅ Database Connected Successfully");
   } catch (error) {
-    console.error("❌ MongoDB connection error:", error.message);
+    console.error("❌ MongoDB Connection Error:", error.message);
+
+    process.exit(1);
   }
 };
 
