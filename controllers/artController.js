@@ -1,4 +1,4 @@
-import Art from "../models/Art.js";
+import Art from "../models/art.js";
 import { v2 as cloudinary } from "cloudinary";
 
 /* ======================================================
