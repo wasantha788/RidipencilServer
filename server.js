@@ -17,7 +17,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ["https://kgsuper-client-production.up.railway.app"];
 
 (async () => {
   try {
@@ -39,9 +39,9 @@ app.use("/api/art", artRouter);
 app.use("/api/message", messageRouter);
 
 /* ERROR HANDLER */
-app.listen(port, () => {
-      console.log(`✅ Server running on http://localhost:${port}`);
-    });
+app.listen(port, "0.0.0.0", () => {
+  console.log(`✅ Server running on port ${port}`);
+});
   } catch (error) {
     console.error("❌ Server failed to start:", error);
   }
